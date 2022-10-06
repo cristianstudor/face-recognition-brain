@@ -1,6 +1,6 @@
 {
-  "name": "face-recognition-brain",
-  "homepage": "https://cristianstudor.github.io/face-recognition-brain",
+  "name": "smart-brain",
+  "homepage": "https://cristianstudor.github.io/smart-brain",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
