@@ -16,7 +16,7 @@ class Signin extends Component {
     this.setState({signInPassword: event.target.value})
   }
   onSubmitSignIn = () => {
-    fetch('https://nameless-stream-48946.herokuapp.com/signin', {
+    fetch('https://smart-brain-api-bkend.herokuapp.com/signin', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

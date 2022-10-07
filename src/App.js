@@ -79,7 +79,7 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({imageUrl: this.state.input});
-    fetch('https://nameless-stream-48946.herokuapp.com/imageurl', {
+    fetch('https://smart-brain-api-bkend.herokuapp.com/imageurl', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({ input: this.state.input })
@@ -87,7 +87,7 @@ class App extends Component {
     .then(response => response.json())
     .then(response => {
       if(response) {
-        fetch('https://nameless-stream-48946.herokuapp.com/image', {
+        fetch('https://smart-brain-api-bkend.herokuapp.com/image', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({ id: this.state.user.id })
