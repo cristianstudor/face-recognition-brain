@@ -15,6 +15,7 @@ const initialState = {
   boxes: [],
   route: "signin",
   isSignedIn: false,
+  isLoading: false,
   user: {
     id: "",
     name: "",
@@ -69,7 +70,7 @@ class App extends Component {
   };
 
   onPictureSubmit = () => {
-    this.setState({ imageUrl: this.state.input });
+    this.setState({ isLoading: true, imageUrl: this.state.input });
     fetch("https://smart-brain-api-bkend.herokuapp.com/imageurl", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -92,10 +93,12 @@ class App extends Component {
               }
             })
             .catch(console.log);
+          this.displayFaceBoxes(this.calculateFaceLocations(response));
+          this.setState({ isLoading: false });
         }
-        this.displayFaceBoxes(this.calculateFaceLocations(response));
       })
-      .catch((err) => console.log("error", err));
+      .catch((err) => console.log("error", err))
+      .finally(() => this.setState({ isLoading: false }));
   };
 
   loadUser = (data) => {
@@ -111,7 +114,7 @@ class App extends Component {
   };
 
   render() {
-    const { imageUrl, boxes, route, isSignedIn } = this.state;
+    const { imageUrl, boxes, route, isSignedIn, isLoading } = this.state;
     const { name, entries } = this.state.user;
     return (
       <div className="App">
@@ -125,6 +128,7 @@ class App extends Component {
             <Logo />
             <Rank name={name} entries={entries} />
             <ImageLinkForm
+              isLoading={isLoading}
               onInputChange={this.onInputChange}
               onButtonSubmit={this.onPictureSubmit}
             />
