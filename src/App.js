@@ -31,21 +31,12 @@ class App extends Component {
   }
 
   calculateFaceLocations = (data) => {
-    // const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
-    // const image = document.getElementById('inputimage');
-    // const width = Number(image.width);
-    // const height = Number(image.height);
-    // return {
-    //   leftCol: clarifaiFace.left_col * width,
-    //   topRow: clarifaiFace.top_row * height,
-    //   rightCol: width - (clarifaiFace.right_col * width),
-    //   bottomRow: height - (clarifaiFace.bottom_row * height)
-    // }
     const clarifaiFaces = data.outputs[0].data.regions;
     const image = document.getElementById("inputimage");
     const width = Number(image.width);
     const height = Number(image.height);
-    const boxes = clarifaiFaces.map((region) => {
+
+    return clarifaiFaces.map((region) => {
       const bounding_box = region.region_info.bounding_box;
       return {
         leftCol: bounding_box.left_col * width,
@@ -54,8 +45,6 @@ class App extends Component {
         bottomRow: height - bounding_box.bottom_row * height
       };
     });
-    console.log(boxes);
-    return boxes;
   };
 
   displayFaceBoxes = (boxes) => {
