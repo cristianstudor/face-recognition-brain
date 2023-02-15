@@ -13,12 +13,12 @@ const initialState = {
   input: "",
   imageUrl: "",
   boxes: [],
-  route: "signin",
+  route: "home",
   isSignedIn: false,
   isLoading: false,
   user: {
     id: "",
-    name: "",
+    name: "Guest",
     email: "",
     entries: 0,
     joined: ""
@@ -55,11 +55,7 @@ class App extends Component {
   onRouteChange = (route) => {
     if (route === "signout") {
       this.setState(initialState);
-    } else if (route === "home") {
-      this.setState({
-        route: "home",
-        isSignedIn: true
-      });
+      this.setState({ route: "signin" });
     } else {
       this.setState({ route: route });
     }
@@ -79,20 +75,28 @@ class App extends Component {
       .then((response) => response.json())
       .then((response) => {
         if (response.outputs) {
-          fetch("https://smart-brain-api-bkend.herokuapp.com/image", {
-            method: "put",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: this.state.user.id })
-          })
-            .then((response) => response.json())
-            .then((entries) => {
-              if (entries) {
-                this.setState(
-                  Object.assign(this.state.user, { entries: entries })
-                );
-              }
+          if (this.state.isSignedIn) {
+            fetch("https://smart-brain-api-bkend.herokuapp.com/image", {
+              method: "put",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ id: this.state.user.id })
             })
-            .catch(console.log);
+              .then((response) => response.json())
+              .then((entries) => {
+                if (entries) {
+                  this.setState(
+                    Object.assign(this.state.user, { entries: entries })
+                  );
+                }
+              })
+              .catch(console.log);
+          } else {
+            this.setState(
+              Object.assign(this.state.user, {
+                entries: this.state.user.entries + 1
+              })
+            );
+          }
           this.displayFaceBoxes(this.calculateFaceLocations(response));
         }
       })
@@ -102,6 +106,10 @@ class App extends Component {
 
   loadUser = (data) => {
     this.setState({
+      input: "",
+      imageUrl: "",
+      boxes: [],
+      isSignedIn: true,
       user: {
         id: data.id,
         name: data.name,
