@@ -67,7 +67,7 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({ isLoading: true, imageUrl: this.state.input });
-    fetch("https://smart-brain-api-bkend.herokuapp.com/imageurl", {
+    fetch("https://smart-brain-api-pzgd.onrender.com/imageurl", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ input: this.state.input })
@@ -76,7 +76,7 @@ class App extends Component {
       .then((response) => {
         if (response.outputs) {
           if (this.state.isSignedIn) {
-            fetch("https://smart-brain-api-bkend.herokuapp.com/image", {
+            fetch("https://smart-brain-api-pzgd.onrender.com/image", {
               method: "put",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ id: this.state.user.id })
