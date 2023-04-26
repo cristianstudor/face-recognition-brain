@@ -1,7 +1,12 @@
 import React from "react";
 import "./ImageLinkForm.css";
 
-const ImageLinkForm = ({ onInputChange, onButtonSubmit, isLoading }) => {
+const ImageLinkForm = ({
+  onInputChange,
+  onButtonSubmit,
+  onButtonReset,
+  isLoading
+}) => {
   return (
     <div>
       <p className="f3">
@@ -11,19 +16,27 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit, isLoading }) => {
         {"Give it a try, paste an image link in the input form."}
       </p>
       <div className="center">
-        <div className="center form pa4 br3 shadow-5">
+        <form className="form pa3 br3 shadow-5">
           <input
-            className="f4 pa2 w-70 center"
+            className="f4 pa2 w-100 center"
             type="text"
-            onChange={onInputChange}
+            placeholder="Paste an image link here to detect faces..."
+            onInput={onInputChange}
           />
           <button
-            className="f4 w-30 grow link ph3 pv2 dib bg-light-purple"
+            className="f4 mh3 mt3 w-30 grow link ph3 pv2 dib bg-light-grey"
             onClick={onButtonSubmit}
           >
             {!isLoading ? "Detect" : "Loading"}
           </button>
-        </div>
+          <button
+            className="f4 mh3 mt3 w-30 grow link ph3 pv2 dib bg-light-grey"
+            onClick={onButtonReset}
+            type="reset"
+          >
+            {"Reset Input"}
+          </button>
+        </form>
       </div>
     </div>
   );

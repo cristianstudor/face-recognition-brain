@@ -65,8 +65,9 @@ class App extends Component {
     this.setState({ input: event.target.value });
   };
 
-  onPictureSubmit = () => {
-    this.setState({ isLoading: true, imageUrl: this.state.input });
+  onPictureSubmit = (event) => {
+    event.preventDefault();
+    this.setState({ isLoading: true, imageUrl: this.state.input, boxes: [] });
     fetch("https://smart-brain-api-pzgd.onrender.com/imageurl", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -104,6 +105,8 @@ class App extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
+  onInputReset = () => this.setState({ input: "" });
+
   loadUser = (data) => {
     this.setState({
       input: "",
@@ -125,7 +128,7 @@ class App extends Component {
     const { name, entries } = this.state.user;
     return (
       <div className="App">
-        <ParticlesBg color="#000000" type="cobweb" num={200} bg={true} />
+        <ParticlesBg color="#000000" type="square" num={30} bg={true} />
         <Navigation
           isSignedIn={isSignedIn}
           onRouteChange={this.onRouteChange}
@@ -138,6 +141,7 @@ class App extends Component {
               isLoading={isLoading}
               onInputChange={this.onInputChange}
               onButtonSubmit={this.onPictureSubmit}
+              onButtonReset={this.onInputReset}
             />
             <FaceRecognition boxes={boxes} imageUrl={imageUrl} />
           </div>
