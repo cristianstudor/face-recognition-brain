@@ -23,7 +23,7 @@ class Register extends Component {
 
   onSubmitRegister = () => {
     this.setState({ isLoading: true });
-    fetch("https://smart-brain-api-pzgd.onrender.com/register", {
+    fetch("https://smart-brain-api-fly.fly.dev/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

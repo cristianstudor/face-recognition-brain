@@ -18,7 +18,7 @@ class Signin extends Component {
   };
   onSubmitSignIn = () => {
     this.setState({ isLoading: true });
-    fetch("https://smart-brain-api-pzgd.onrender.com/signin", {
+    fetch("https://smart-brain-api-fly.fly.dev/signin", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -68,7 +68,7 @@ class App extends Component {
   onPictureSubmit = (event) => {
     event.preventDefault();
     this.setState({ isLoading: true, imageUrl: this.state.input, boxes: [] });
-    fetch("https://smart-brain-api-pzgd.onrender.com/imageurl", {
+    fetch("https://smart-brain-api-fly.fly.dev/imageurl", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ input: this.state.input })
@@ -77,7 +77,7 @@ class App extends Component {
       .then((response) => {
         if (response.outputs) {
           if (this.state.isSignedIn) {
-            fetch("https://smart-brain-api-pzgd.onrender.com/image", {
+            fetch("https://smart-brain-api-fly.fly.dev/image", {
               method: "put",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ id: this.state.user.id })
